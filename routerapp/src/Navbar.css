@@ -1,0 +1,32 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+.navbar{
+    padding: 0px 20px;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    background-color:gray;
+}
+.logo{
+    font-size: 36px;
+    color:green;
+    font-weight: bold;
+}
+.links{
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+}
+.navbar>.links>.link{
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+.navbar>.links>.link.active{
+    color: orange;
+    text-decoration: underline;
+}
