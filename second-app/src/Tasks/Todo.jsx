@@ -3,9 +3,23 @@ import { useState } from "react"
 function Todo() {
     const [text, setText] = useState("")
     const [todos, setTodos] = useState([])
+    const [editIndex, setEditIndex] = useState(null)
     function addTask() {
-        setTodos([...todos, text])
-        setText("") // clear the input
+        if (editIndex == null) { //add new task
+            setTodos([...todos, text])
+            setText("") // clear the input
+        } else { //edit part
+            let updatedTodos = todos.map((ele, i) => {
+                if (i === editIndex) {
+                    return text
+                } else {
+                    return ele
+                }
+            })
+            setTodos(updatedTodos)
+            setEditIndex(null)
+            setText("")
+        }
     }
     function deleteTask(deleteIndex) {
         // console.log(deleteIndex)
@@ -17,12 +31,17 @@ function Todo() {
         let newArray = todos.filter((ele, i) => deleteIndex != i)
         setTodos(newArray)
     }
+    function editTask(index) {
+        setEditIndex(index)
+        // let task = todos.find((ele, i) => i == index)
+        setText(todos[index])
+    }
     return (
         <>
             <h1>Todo component using useState()</h1>
             <div>
                 <input type="text" onChange={(e) => setText(e.target.value)} value={text} />
-                <button onClick={addTask}>ADD</button>
+                <button onClick={addTask}>{editIndex == null ? "ADD" : "UPDATE"}</button>
             </div>
             <div style={{ display: "flex", flexDirection: "column", width: "50%", margin: "auto", gap: "10px", }}>
                 {
@@ -33,7 +52,7 @@ function Todo() {
                         }}>
                             <h1>{task}</h1>
                             <div>
-                                <button>EDIT</button>
+                                <button onClick={() => editTask(index)}>EDIT</button>
                                 <button onClick={() => deleteTask(index)}>DELETE</button>
                             </div>
                         </div>
