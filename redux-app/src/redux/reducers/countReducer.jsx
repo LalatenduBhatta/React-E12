@@ -11,5 +11,4 @@ function countReducer(state = initialValue, action) {
             return state
     }
 }
-
 export default countReducer
